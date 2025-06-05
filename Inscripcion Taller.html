@@ -113,10 +113,18 @@
         .hero-link-entreno:hover {
             text-decoration: underline;
         }
-        .section-title {
+        .section-title { /* Estilo general para títulos de sección */
             margin-bottom: 3rem; 
+            font-size: 2.25rem; /* text-3xl */
+            line-height: 2.5rem; /* leading-9 */
         }
-        .section-title span {
+        @media (min-width: 768px) { /* md: */
+            .section-title {
+                font-size: 2.25rem; /* text-4xl */
+                line-height: 2.5rem;
+            }
+        }
+        .section-title span { /* Para el texto resaltado dentro de un título */
             color: #ed8936; 
             border-bottom: 3px solid #ed8936; 
             padding-bottom: 0.25rem;
@@ -202,12 +210,20 @@
             object-fit: cover; 
         }
 
+        .modal-overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-content {
+            transition: transform 0.3s ease-in-out;
+            max-height: 90vh; 
+        }
+
     </style>
 </head>
 <body class="text-gray-800">
 
     <!-- Navigation Bar -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
+    <nav class="bg-white shadow-md sticky top-0 z-40">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="https://www.instagram.com/askesis111/" target="_blank" rel="noopener noreferrer" class="text-xl font-bold text-orange-500 hover:text-orange-600 flex items-center">
                 <div class="nav-logo-img-container">
@@ -217,12 +233,12 @@
             </a>
             <div class="hidden md:flex space-x-4 items-center">
                 <a href="#inicio" class="text-gray-600 hover:text-blue-600">Inicio</a>
+                <button data-modal-toggle="inscripcionModal" class="text-gray-600 hover:text-blue-600">Inscríbete Aquí!</button> 
                 <a href="#calistenia" class="text-gray-600 hover:text-blue-600">Calistenia</a>
                 <a href="#beneficios" class="text-gray-600 hover:text-blue-600">Beneficios</a>
                 <a href="#horarios" class="text-gray-600 hover:text-blue-600">Horarios</a>
                 <a href="#galeria" class="text-gray-600 hover:text-blue-600">Galería</a>
-                <a href="#inscribete" class="text-gray-600 hover:text-blue-600">Inscríbete</a>
-                <a href="#inscribete" class="btn-secondary py-2 px-4 rounded-lg text-sm font-semibold">¡Únete Ahora!</a>
+                <button data-modal-toggle="inscripcionModal" class="btn-secondary py-2 px-4 rounded-lg text-sm font-semibold">Inscríbete Aquí!</button>
             </div>
             <div class="md:hidden">
                 <button id="mobile-menu-button" class="text-gray-600 focus:outline-none">
@@ -234,12 +250,12 @@
         </div>
         <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg">
             <a href="#inicio" class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-blue-600">Inicio</a>
+            <button data-modal-toggle="inscripcionModal" class="w-full text-left block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-blue-600">Inscríbete Aquí!</button>
             <a href="#calistenia" class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-blue-600">Calistenia</a>
             <a href="#beneficios" class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-blue-600">Beneficios</a>
             <a href="#horarios" class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-blue-600">Horarios</a>
             <a href="#galeria" class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-blue-600">Galería</a>
-            <a href="#inscribete" class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-blue-600">Inscríbete</a>
-            <a href="#inscribete" class="block mx-6 my-3 btn-secondary py-2 px-4 rounded-lg text-sm font-semibold text-center">¡Únete Ahora!</a>
+            <button data-modal-toggle="inscripcionModal" class="block mx-6 my-3 btn-secondary py-2 px-4 rounded-lg text-sm font-semibold text-center w-auto">Inscríbete Aquí!</button>
         </div>
     </nav>
 
@@ -253,9 +269,9 @@
                 <a href="https://www.instagram.com/entreno_integral/" target="_blank" rel="noopener noreferrer" class="hero-link-entreno">Entreno Integral</a>
             </h1>
             <p class="text-lg md:text-xl mt-4 mb-8 max-w-2xl mx-auto">Potencia tus capacidades físicas con el peso corporal y transfiérelo a tu disciplina.</p>
-            <a href="#inscribete" class="btn-secondary py-3 px-8 rounded-lg text-lg font-bold uppercase hover:bg-orange-400 transition duration-300">
-                ¡Únete Ahora!
-            </a>
+            <button data-modal-toggle="inscripcionModal" class="btn-secondary py-3 px-8 rounded-lg text-lg font-bold uppercase hover:bg-orange-400 transition duration-300">
+                Inscríbete Aquí!
+            </button>
         </div>
     </section>
 
@@ -275,12 +291,10 @@
                 </div>
                 <div class="md:w-1/2 flex justify-center md:justify-end"> 
                     <div class="calisthenics-video-container">
-                        <!-- === VIDEO ACTUALIZADO: autoplay, muted, sin loop, con controls === -->
                         <video autoplay muted playsinline controls poster="https://placehold.co/360x640/e2e8f0/cbd5e0?text=Cargando+video...">
                             <source src="https://raw.githubusercontent.com/OmniaInBonum/Imagenes/main/video2.mp4" type="video/mp4">
                             Tu navegador no soporta la etiqueta de video.
                         </video>
-                        <!-- === FIN DE VIDEO ACTUALIZADO === -->
                     </div>
                 </div>
             </div>
@@ -390,8 +404,8 @@
 
     <section id="galeria" class="py-16 md:py-24 gallery-bg text-white"> 
         <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold section-title">Nuestra <span>Galería</span></h2>
-            <h3 class="text-3xl font-bold mb-10 -mt-4 text-orange-500">Qué puedes lograr</h3>
+            <!-- === TÍTULO GALERÍA ACTUALIZADO === -->
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-12 text-orange-500">¡Qué puedes lograr!</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                 <img src="https://placehold.co/600x400/4a5568/a0aec0?text=Calistenia+Logro+1&font=inter" alt="[Imagen de Galería Calistenia Logro 1]" class="rounded-lg shadow-lg w-full h-64 object-cover transform hover:scale-105 transition-transform duration-300">
                 <img src="https://placehold.co/600x400/4a5568/a0aec0?text=Calistenia+Logro+2&font=inter" alt="[Imagen de Galería Calistenia Logro 2]" class="rounded-lg shadow-lg w-full h-64 object-cover transform hover:scale-105 transition-transform duration-300">
@@ -404,63 +418,7 @@
         </div>
     </section>
 
-    <section id="inscribete" class="py-16 md:py-24 section-bg-gray"> 
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center section-title">¡Inscríbete <span>Ahora</span>!</h2>
-            <p class="text-center text-gray-600 mb-10 max-w-2xl mx-auto">Da el primer paso hacia la transformación de tu cuerpo y mente. Completa el formulario y nos pondremos en contacto contigo.</p>
-            
-            <div class="max-w-3xl mx-auto bg-white p-8 md:p-10 rounded-xl shadow-2xl">
-                <div class="bg-gradient-to-r from-blue-600 to-orange-500 text-white p-6 rounded-t-lg mb-8 text-center">
-                    <h3 class="text-2xl font-semibold">Formulario de Contacto</h3>
-                    <p class="text-sm opacity-90">Todos los niveles son bienvenidos - desde principiantes hasta avanzados.</p>
-                </div>
-                
-                <form id="inscripcionForm" class="space-y-6">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">
-                                <i class="fas fa-user mr-2 text-blue-500"></i>Nombre Completo *
-                            </label>
-                            <input type="text" name="nombre" id="nombre" placeholder="Tu nombre completo" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                        </div>
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
-                                <i class="fas fa-envelope mr-2 text-blue-500"></i>Correo Electrónico *
-                            </label>
-                            <input type="email" name="email" id="email" placeholder="tu@email.com" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                        </div>
-                    </div>
-                    <div>
-                        <label for="telefono" class="block text-sm font-medium text-gray-700 mb-1">
-                            <i class="fas fa-phone mr-2 text-blue-500"></i>Teléfono
-                        </label>
-                        <input type="tel" name="telefono" id="telefono" placeholder="+569 12345678" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-                    <div>
-                        <label for="mensaje" class="block text-sm font-medium text-gray-700 mb-1">
-                            <i class="fas fa-comment-dots mr-2 text-blue-500"></i>Mensaje / Preguntas
-                        </label>
-                        <textarea name="mensaje" id="mensaje" rows="4" placeholder="Cuéntanos sobre tu nivel actual, objetivos o cualquier pregunta que tengas..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
-                    </div>
-                    <div>
-                        <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-orange-500 hover:from-blue-700 hover:to-orange-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 text-lg">
-                            Enviar Solicitud de Inscripción
-                        </button>
-                    </div>
-                </form>
-                <div id="form-notification"></div>
-                <div class="mt-10 bg-orange-50 p-6 rounded-lg border border-orange-200">
-                    <h4 class="text-xl font-semibold text-orange-700 mb-3">¿Qué pasa después?</h4>
-                    <ul class="space-y-2 text-gray-700">
-                        <li class="flex items-start"><span class="text-orange-500 font-bold mr-2">•</span>Te contactaremos en menos de 24 horas (o revisa tu WhatsApp si enviaste la solicitud).</li>
-                        <li class="flex items-start"><span class="text-orange-500 font-bold mr-2">•</span>Evaluaremos tu nivel y objetivos.</li>
-                        <li class="flex items-start"><span class="text-orange-500 font-bold mr-2">•</span>Te invitaremos a una clase de prueba gratuita.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <!-- Footer -->
     <footer class="footer-bg text-gray-300 py-12"> 
         <div class="container mx-auto px-6 text-center">
             <h3 class="text-2xl font-semibold mb-2">Askesis / Entreno Integral</h3>
@@ -474,7 +432,68 @@
         </div>
     </footer>
 
-    <a href="#inicio" id="toTopBtn" class="fixed bottom-6 right-6 bg-orange-500 hover:bg-orange-600 text-white p-3 rounded-full shadow-lg transition-opacity duration-300 opacity-0 hidden z-50">
+    <div id="inscripcionModal" class="modal-overlay fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-75 opacity-0">
+        <div class="modal-content bg-white p-8 md:p-10 rounded-xl shadow-2xl max-w-3xl w-11/12 mx-auto my-8 overflow-y-auto transform scale-95 section-bg-gray relative">
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 z-10">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <h2 class="text-3xl md:text-4xl font-bold text-center section-title text-gray-800">¡Inscríbete <span>Ahora</span>!</h2>
+            <p class="text-center text-gray-700 mb-10 max-w-2xl mx-auto">Da el primer paso hacia la transformación de tu cuerpo y mente. Completa el formulario y nos pondremos en contacto contigo.</p>
+            
+            <div class="bg-white p-0 rounded-xl">
+                <div class="bg-gradient-to-r from-blue-600 to-orange-500 text-white p-6 rounded-t-lg mb-8 text-center">
+                    <h3 class="text-2xl font-semibold">Formulario de Contacto</h3>
+                    <p class="text-sm opacity-90">Todos los niveles son bienvenidos - desde principiantes hasta avanzados.</p>
+                </div>
+                
+                <form id="inscripcionFormModal" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="nombreModal" class="block text-sm font-medium text-gray-700 mb-1">
+                                <i class="fas fa-user mr-2 text-blue-500"></i>Nombre Completo *
+                            </label>
+                            <input type="text" name="nombreModal" id="nombreModal" placeholder="Tu nombre completo" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="emailModal" class="block text-sm font-medium text-gray-700 mb-1">
+                                <i class="fas fa-envelope mr-2 text-blue-500"></i>Correo Electrónico *
+                            </label>
+                            <input type="email" name="emailModal" id="emailModal" placeholder="tu@email.com" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="telefonoModal" class="block text-sm font-medium text-gray-700 mb-1">
+                            <i class="fas fa-phone mr-2 text-blue-500"></i>Teléfono
+                        </label>
+                        <input type="tel" name="telefonoModal" id="telefonoModal" placeholder="+569 12345678" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="mensajeModal" class="block text-sm font-medium text-gray-700 mb-1">
+                            <i class="fas fa-comment-dots mr-2 text-blue-500"></i>Mensaje / Preguntas
+                        </label>
+                        <textarea name="mensajeModal" id="mensajeModal" rows="4" placeholder="Cuéntanos sobre tu nivel actual, objetivos o cualquier pregunta que tengas..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-orange-500 hover:from-blue-700 hover:to-orange-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 text-lg">
+                            Enviar Solicitud de Inscripción
+                        </button>
+                    </div>
+                </form>
+                <div id="formNotificationModal"></div>
+                <div class="mt-10 bg-orange-50 p-6 rounded-lg border border-orange-200">
+                    <h4 class="text-xl font-semibold text-orange-700 mb-3">¿Qué pasa después?</h4>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start"><span class="text-orange-500 font-bold mr-2">•</span>Te contactaremos en menos de 24 horas (o revisa tu WhatsApp si enviaste la solicitud).</li>
+                        <li class="flex items-start"><span class="text-orange-500 font-bold mr-2">•</span>Evaluaremos tu nivel y objetivos.</li>
+                        <li class="flex items-start"><span class="text-orange-500 font-bold mr-2">•</span>Te invitaremos a una clase de prueba gratuita.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="#inicio" id="toTopBtn" class="fixed bottom-6 right-6 bg-orange-500 hover:bg-orange-600 text-white p-3 rounded-full shadow-lg transition-opacity duration-300 opacity-0 hidden z-40">
         <i class="fas fa-arrow-up text-xl"></i>
     </a>
 
@@ -488,10 +507,57 @@
         }
 
         const toTopBtn = document.getElementById('toTopBtn');
+        const inscripcionModal = document.getElementById('inscripcionModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const openModalBtns = document.querySelectorAll('[data-modal-toggle="inscripcionModal"]');
+
+        function openModal() {
+            if (inscripcionModal) {
+                inscripcionModal.classList.remove('hidden');
+                setTimeout(() => { 
+                    inscripcionModal.classList.remove('opacity-0');
+                    inscripcionModal.querySelector('.modal-content').classList.remove('scale-95');
+                }, 10);
+            }
+        }
+
+        function closeModal() {
+            if (inscripcionModal) {
+                inscripcionModal.classList.add('opacity-0');
+                inscripcionModal.querySelector('.modal-content').classList.add('scale-95');
+                setTimeout(() => { 
+                    inscripcionModal.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        openModalBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                openModal();
+            });
+        });
+
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener('click', closeModal);
+        }
+        if (inscripcionModal) {
+            inscripcionModal.addEventListener('click', (event) => {
+                if (event.target === inscripcionModal) {
+                    closeModal();
+                }
+            });
+        }
+        
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const targetId = this.getAttribute('href');
+                
+                if (this.dataset.modalToggle === 'inscripcionModal') {
+                    return; 
+                }
+
                 if (this.classList.contains('font-bold') && (targetId.startsWith('http') || targetId.startsWith('www'))) {
                     if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
                        mobileMenu.classList.add('hidden');
@@ -500,20 +566,20 @@
                 }
 
                 e.preventDefault(); 
-
-                if (targetId === '#' || targetId === '#inicio') { 
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                } else {
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    if (targetId === '#inscribete' && inscripcionModal) { 
+                        openModal();
+                    } else {
+                         window.scrollTo({
+                            top: targetElement.offsetTop - 70, 
                             behavior: 'smooth'
                         });
                     }
+                } else if (targetId === '#inicio') { 
+                     window.scrollTo({ top: 0, behavior: 'smooth'});
                 }
+                
                 if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
                     mobileMenu.classList.add('hidden');
                 }
@@ -521,6 +587,11 @@
         });
         
         if (toTopBtn) {
+            toTopBtn.addEventListener('click', function(e) { 
+                 e.preventDefault();
+                 window.scrollTo({ top: 0, behavior: 'smooth'});
+            });
+
             window.addEventListener('scroll', () => {
                 if (window.pageYOffset > 300) { 
                     if (toTopBtn.classList.contains('hidden')) {
@@ -539,22 +610,24 @@
             });
         }
 
-        const inscripcionForm = document.getElementById('inscripcionForm');
-        const formNotification = document.getElementById('form-notification');
+        const inscripcionFormModal = document.getElementById('inscripcionFormModal');
+        const formNotificationModal = document.getElementById('formNotificationModal');
 
-        if (inscripcionForm) {
-            inscripcionForm.addEventListener('submit', function(event) {
+        if (inscripcionFormModal) {
+            inscripcionFormModal.addEventListener('submit', function(event) {
                 event.preventDefault(); 
 
-                const nombre = document.getElementById('nombre').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const telefono = document.getElementById('telefono').value.trim();
-                const mensaje = document.getElementById('mensaje').value.trim();
+                const nombre = document.getElementById('nombreModal').value.trim();
+                const email = document.getElementById('emailModal').value.trim();
+                const telefono = document.getElementById('telefonoModal').value.trim();
+                const mensaje = document.getElementById('mensajeModal').value.trim();
 
                 if (!nombre || !email) {
-                    formNotification.textContent = 'Por favor, completa los campos obligatorios (Nombre y Correo).';
-                    formNotification.className = 'p-4 mt-4 rounded-md text-center border error border-red-400 bg-red-100 text-red-700';
-                    formNotification.style.display = 'block';
+                    if(formNotificationModal) {
+                        formNotificationModal.textContent = 'Por favor, completa los campos obligatorios (Nombre y Correo).';
+                        formNotificationModal.className = 'p-4 mt-4 rounded-md text-center border error border-red-400 bg-red-100 text-red-700';
+                        formNotificationModal.style.display = 'block';
+                    }
                     return;
                 }
                 
@@ -573,23 +646,30 @@
                 const whatsappNumber = '56975401150'; 
                 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
-                formNotification.textContent = 'Redirigiendo a WhatsApp... Si no sucede nada, por favor revisa si tu navegador bloqueó una ventana emergente e inténtalo de nuevo.';
-                formNotification.className = 'p-4 mt-4 rounded-md text-center border success border-green-400 bg-green-100 text-green-700';
-                formNotification.style.display = 'block';
+                if(formNotificationModal) {
+                    formNotificationModal.textContent = 'Redirigiendo a WhatsApp... Si no sucede nada, por favor revisa si tu navegador bloqueó una ventana emergente e inténtalo de nuevo.';
+                    formNotificationModal.className = 'p-4 mt-4 rounded-md text-center border success border-green-400 bg-green-100 text-green-700';
+                    formNotificationModal.style.display = 'block';
+                }
 
                 const newTab = window.open(whatsappUrl, '_blank');
 
                 if (!newTab || newTab.closed || typeof newTab.closed == 'undefined') {
                     console.warn('Posible bloqueo de ventana emergente al intentar abrir WhatsApp.');
+                     if(formNotificationModal) { 
+                        formNotificationModal.textContent = 'No pudimos abrir WhatsApp automáticamente. Revisa tu bloqueador de pop-ups o intenta de nuevo.';
+                        formNotificationModal.className = 'p-4 mt-4 rounded-md text-center border error border-red-400 bg-red-100 text-red-700';
+                    }
                 }
                 
                 setTimeout(() => {
-                    if (formNotification) { 
-                         formNotification.style.display = 'none'; 
+                    if (formNotificationModal) { 
+                         formNotificationModal.style.display = 'none'; 
                     }
-                    if (inscripcionForm) { 
-                        inscripcionForm.reset(); 
+                    if (inscripcionFormModal) { 
+                        inscripcionFormModal.reset(); 
                     }
+                    closeModal(); 
                 }, 4000); 
             });
         }
