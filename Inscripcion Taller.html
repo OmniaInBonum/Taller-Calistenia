@@ -246,14 +246,12 @@
     <section id="inicio" class="hero-bg text-white min-h-screen flex flex-col justify-center items-center text-center p-6 relative">
         <div class="absolute inset-0 bg-black opacity-70"></div>
         <div class="relative z-10">
-            <!-- === INICIO: HERO TEXTO Y TAMAÑO ACTUALIZADOS === -->
             <h1 class="text-3xl md:text-5xl font-extrabold uppercase tracking-wider leading-tight">
                 Taller De Calistenia <br class="sm:hidden"> en colaboración con <br>
                 <a href="https://www.instagram.com/askesis111/" target="_blank" rel="noopener noreferrer" class="hero-link-askesis">Askesis</a>
                  / 
                 <a href="https://www.instagram.com/entreno_integral/" target="_blank" rel="noopener noreferrer" class="hero-link-entreno">Entreno Integral</a>
             </h1>
-            <!-- === FIN: HERO TEXTO Y TAMAÑO ACTUALIZADOS === -->
             <p class="text-lg md:text-xl mt-4 mb-8 max-w-2xl mx-auto">Potencia tus capacidades físicas con el peso corporal y transfiérelo a tu disciplina.</p>
             <a href="#inscribete" class="btn-secondary py-3 px-8 rounded-lg text-lg font-bold uppercase hover:bg-orange-400 transition duration-300">
                 ¡Únete Ahora!
@@ -277,10 +275,12 @@
                 </div>
                 <div class="md:w-1/2 flex justify-center md:justify-end"> 
                     <div class="calisthenics-video-container">
-                        <video autoplay loop muted playsinline controls poster="https://placehold.co/360x640/e2e8f0/cbd5e0?text=Cargando+video...">
+                        <!-- === VIDEO ACTUALIZADO: autoplay, muted, sin loop, con controls === -->
+                        <video autoplay muted playsinline controls poster="https://placehold.co/360x640/e2e8f0/cbd5e0?text=Cargando+video...">
                             <source src="https://raw.githubusercontent.com/OmniaInBonum/Imagenes/main/video2.mp4" type="video/mp4">
                             Tu navegador no soporta la etiqueta de video.
                         </video>
+                        <!-- === FIN DE VIDEO ACTUALIZADO === -->
                     </div>
                 </div>
             </div>
@@ -454,7 +454,7 @@
                     <ul class="space-y-2 text-gray-700">
                         <li class="flex items-start"><span class="text-orange-500 font-bold mr-2">•</span>Te contactaremos en menos de 24 horas (o revisa tu WhatsApp si enviaste la solicitud).</li>
                         <li class="flex items-start"><span class="text-orange-500 font-bold mr-2">•</span>Evaluaremos tu nivel y objetivos.</li>
-                        <li class="flex items-start"><span class="text-orange-500 font-bold mr-2">•</span>Te invitaremos a tu primera clase.</li>
+                        <li class="flex items-start"><span class="text-orange-500 font-bold mr-2">•</span>Te invitaremos a una clase de prueba gratuita.</li>
                     </ul>
                 </div>
             </div>
@@ -553,7 +553,7 @@
 
                 if (!nombre || !email) {
                     formNotification.textContent = 'Por favor, completa los campos obligatorios (Nombre y Correo).';
-                    formNotification.className = 'error p-4 mt-4 rounded-md text-center border border-red-400 bg-red-100 text-red-700';
+                    formNotification.className = 'p-4 mt-4 rounded-md text-center border error border-red-400 bg-red-100 text-red-700';
                     formNotification.style.display = 'block';
                     return;
                 }
@@ -570,20 +570,30 @@
                 whatsappMessage += `\n¡Espero su respuesta!`;
 
                 const encodedMessage = encodeURIComponent(whatsappMessage);
-                const whatsappNumber = '56975401150';
+                const whatsappNumber = '56975401150'; 
                 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
-                formNotification.textContent = 'Preparando tu mensaje para WhatsApp... Serás redirigido en unos segundos.';
-                formNotification.className = 'success p-4 mt-4 rounded-md text-center border border-green-400 bg-green-100 text-green-700';
+                formNotification.textContent = 'Redirigiendo a WhatsApp... Si no sucede nada, por favor revisa si tu navegador bloqueó una ventana emergente e inténtalo de nuevo.';
+                formNotification.className = 'p-4 mt-4 rounded-md text-center border success border-green-400 bg-green-100 text-green-700';
                 formNotification.style.display = 'block';
 
+                const newTab = window.open(whatsappUrl, '_blank');
+
+                if (!newTab || newTab.closed || typeof newTab.closed == 'undefined') {
+                    console.warn('Posible bloqueo de ventana emergente al intentar abrir WhatsApp.');
+                }
+                
                 setTimeout(() => {
-                    window.open(whatsappUrl, '_blank');
-                    formNotification.style.display = 'none'; 
-                    inscripcionForm.reset(); 
-                }, 2500); 
+                    if (formNotification) { 
+                         formNotification.style.display = 'none'; 
+                    }
+                    if (inscripcionForm) { 
+                        inscripcionForm.reset(); 
+                    }
+                }, 4000); 
             });
         }
+
         const footerWhatsAppLink = document.querySelector('footer a[href*="wa.me"]');
         if (footerWhatsAppLink) {
             footerWhatsAppLink.href = 'https://wa.me/56975401150';
